@@ -16,6 +16,7 @@ from pydantic import BaseModel
 import config
 from src import predict as P
 from src import roster_fetch
+from src import market_odds
 
 app = FastAPI(title="Soccer Game Predictor", version="1.0.0")
 app.add_middleware(
@@ -30,6 +31,7 @@ class PredictRequest(BaseModel):
     away: str
     neutral: bool = True
     include_rosters: bool = False
+    use_odds: bool = False
 
 
 @app.get("/api/teams")
@@ -46,9 +48,13 @@ def predict(req: PredictRequest):
     if req.home == req.away:
         raise HTTPException(400, "Pick two different teams.")
 
-    pred = P.predict_match(req.home, req.away, neutral=req.neutral).to_dict()
-    pred["home_flag"] = config.get_flag_code(req.home)
-    pred["away_flag"] = config.get_flag_code(req.away)
+    pred = P.predict_match(req.home, req.away, neutral=req.neutral,
+                           use_market=req.use_odds).to_dict()
+    pred["home_flag"] = P.get_flag(req.home)
+    pred["away_flag"] = P.get_flag(req.away)
+    pred["home_elo"] = P.team_elo(req.home)
+    pred["away_elo"] = P.team_elo(req.away)
+    pred["odds_available"] = market_odds.has_key()
 
     if req.include_rosters:
         pred["home_roster"] = roster_fetch.get_current_squad(req.home)
@@ -66,9 +72,16 @@ def roster(team: str):
     }
 
 
+@app.get("/api/odds_status")
+def odds_status():
+    return {"odds_key_configured": market_odds.has_key(),
+            "blend_weight": market_odds.MARKET_BLEND_WEIGHT}
+
+
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "teams": len(P.available_teams())}
+    return {"status": "ok", "teams": len(P.available_teams()),
+            "odds_key": market_odds.has_key()}
 
 
 # Serve the single-page UI at the root.

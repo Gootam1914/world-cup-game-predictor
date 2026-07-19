@@ -29,17 +29,31 @@ class Prediction:
     confidence: float          # 0-100, probability mass on the predicted outcome
     confidence_band: str       # Low / Medium / High
     top_scorelines: list       # [(h, a, prob), ...] most probable exact scores
+    market_used: bool = False  # were live betting odds blended in?
+    market_probs: dict = None  # de-vigged market probabilities, if used
 
     def to_dict(self) -> dict:
         return asdict(self)
 
 
-def _score_matrix(lam_home: float, lam_away: float) -> np.ndarray:
+# Dixon-Coles low-score correction (fitted on validation; improves draw and
+# 1-0/0-1 calibration over the independent-Poisson assumption).
+DC_RHO = -0.12
+
+
+def _score_matrix(lam_home: float, lam_away: float, rho: float = 0.0) -> np.ndarray:
     lam_home = max(float(lam_home), 1e-6)
     lam_away = max(float(lam_away), 1e-6)
     h = poisson.pmf(np.arange(MAX_GOALS + 1), lam_home)
     a = poisson.pmf(np.arange(MAX_GOALS + 1), lam_away)
-    return np.outer(h, a)  # M[i, j] = P(home=i, away=j)
+    m = np.outer(h, a)  # M[i, j] = P(home=i, away=j)
+    if rho:
+        m[0, 0] *= 1 - lam_home * lam_away * rho
+        m[0, 1] *= 1 + lam_home * rho
+        m[1, 0] *= 1 + lam_away * rho
+        m[1, 1] *= 1 - rho
+        m = np.clip(m, 0, None)
+    return m
 
 
 def _confidence_band(conf: float) -> str:
@@ -51,8 +65,8 @@ def _confidence_band(conf: float) -> str:
 
 
 def build_prediction(home_team: str, away_team: str,
-                     lam_home: float, lam_away: float) -> Prediction:
-    m = _score_matrix(lam_home, lam_away)
+                     lam_home: float, lam_away: float, rho: float = 0.0) -> Prediction:
+    m = _score_matrix(lam_home, lam_away, rho)
     p_home = float(np.tril(m, -1).sum())   # home > away
     p_away = float(np.triu(m, 1).sum())    # away > home
     p_draw = float(np.trace(m))

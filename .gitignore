@@ -13,6 +13,7 @@ env/
 # Large / regenerable data
 data/raw/
 data/statsbomb_open_data/
+data/processed/intl_training_data.csv
 *.log
 
 # Node (npm launcher creates none, but just in case)

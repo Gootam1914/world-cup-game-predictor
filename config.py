@@ -22,6 +22,11 @@ ASSETS_DIR = ROOT / "data" / "assets"
 STATSBOMB_REPO = "https://github.com/statsbomb/open-data"
 STATSBOMB_CLONE_DIR = DATA_DIR / "statsbomb_open_data"
 
+# Large historical international results dataset (martj42/international_results),
+# committed to the repo so the upgraded Elo model works out of the box.
+INTL_RESULTS_CSV = ROOT / "data" / "international_results.csv"
+INTL_RESULTS_REPO = "https://github.com/martj42/international_results"
+
 for _p in (PROCESSED_DIR, MODELS_DIR, ASSETS_DIR):
     _p.mkdir(parents=True, exist_ok=True)
 

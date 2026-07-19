@@ -122,25 +122,28 @@
       <div class="selectors">
         <div>
           <label>Team A</label>
-          <div class="flag-preview"><img id="flagHome" alt="" /><div><div class="nm" id="nmHome">—</div><div class="cf" id="cfHome"></div></div></div>
+          <div class="flag-preview"><img id="flagHome" alt="" onerror="this.style.visibility='hidden'" /><div><div class="nm" id="nmHome">—</div><div class="cf" id="cfHome"></div></div></div>
           <select id="home"></select>
         </div>
         <div class="vs">VS</div>
         <div>
           <label>Team B</label>
-          <div class="flag-preview"><img id="flagAway" alt="" /><div><div class="nm" id="nmAway">—</div><div class="cf" id="cfAway"></div></div></div>
+          <div class="flag-preview"><img id="flagAway" alt="" onerror="this.style.visibility='hidden'" /><div><div class="nm" id="nmAway">—</div><div class="cf" id="cfAway"></div></div></div>
           <select id="away"></select>
         </div>
       </div>
       <div class="controls">
-        <div class="toggle"><label class="switch"><input type="checkbox" id="neutral" checked /><span class="slider"></span></label>Neutral venue</div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div class="toggle"><label class="switch"><input type="checkbox" id="neutral" checked /><span class="slider"></span></label>Neutral venue</div>
+          <div class="toggle" id="oddsToggle" title=""><label class="switch"><input type="checkbox" id="useodds" disabled /><span class="slider"></span></label><span id="oddsLabel">Blend live odds</span></div>
+        </div>
         <button class="predict" id="go">Predict</button>
       </div>
     </div>
 
     <div id="result"></div>
 
-    <footer>Data &copy; <a href="https://github.com/statsbomb/open-data" target="_blank">StatsBomb</a></footer>
+    <footer>Ratings from 150 years of results &middot; <a href="https://github.com/martj42/international_results" target="_blank">match data</a></footer>
   </div>
 
 <script>
@@ -165,7 +168,7 @@ function syncPreview(side) {
   const t = teamByName($(side).value); if (!t) return;
   $("flag" + cap(side)).src = flagURL(t.flag);
   $("nm" + cap(side)).textContent = t.name;
-  $("cf" + cap(side)).textContent = t.confederation;
+  $("cf" + cap(side)).textContent = `${t.confederation} · Elo ${t.elo}`;
 }
 $("home").addEventListener("change", () => syncPreview("home"));
 $("away").addEventListener("change", () => syncPreview("away"));
@@ -177,7 +180,7 @@ $("go").addEventListener("click", async () => {
   try {
     const r = await fetch("/api/predict", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ home, away, neutral: $("neutral").checked }),
+      body: JSON.stringify({ home, away, neutral: $("neutral").checked, use_odds: $("useodds").checked }),
     });
     if (!r.ok) { const e = await r.json(); showError(e.detail || "Something went wrong."); return; }
     render(await r.json());
@@ -192,16 +195,16 @@ function render(p) {
     `<div class="chip">${s[0]}&ndash;${s[1]} <span>${pct(s[2])}%</span></div>`).join("");
   $("result").innerHTML = `
   <div class="card">
-    <div class="eyebrow">Predicted Result</div>
+    <div class="eyebrow">Predicted Result${p.market_used ? ' &middot; <span style="color:#1e5eb8">live odds blended</span>' : ''}</div>
     <div class="matchup">
-      <div class="team-block"><img src="${flagURL(p.home_flag)}" alt="">
-        <div class="name">${p.home_team}</div><div class="conf">${h ? h.confederation : ""}</div></div>
+      <div class="team-block"><img src="${flagURL(p.home_flag)}" alt="" onerror="this.style.visibility='hidden'">
+        <div class="name">${p.home_team}</div><div class="conf">Elo ${p.home_elo}</div></div>
       <div style="text-align:center">
         <div class="score">${p.likely_home_goals}<span class="sep">&ndash;</span>${p.likely_away_goals}</div>
         <div class="xg">proj. ${p.exp_home_goals} &ndash; ${p.exp_away_goals}</div>
       </div>
-      <div class="team-block"><img src="${flagURL(p.away_flag)}" alt="">
-        <div class="name">${p.away_team}</div><div class="conf">${a ? a.confederation : ""}</div></div>
+      <div class="team-block"><img src="${flagURL(p.away_flag)}" alt="" onerror="this.style.visibility='hidden'">
+        <div class="name">${p.away_team}</div><div class="conf">Elo ${p.away_elo}</div></div>
     </div>
 
     <div class="probs">
@@ -220,12 +223,26 @@ function render(p) {
     <div class="meta">
       <div class="box"><h4>Confidence</h4>
         <span class="conf-pill conf-${p.confidence_band}">${p.confidence}% &middot; ${p.confidence_band}</span>
-        <div class="conf-sub">Likelihood of the projected result.</div></div>
+        <div class="conf-sub">${p.market_used ? "Sharpened with live betting-market odds." : "Likelihood of the projected result."}</div></div>
       <div class="box"><h4>Likely scorelines</h4><div class="chips">${chips}</div></div>
     </div>
   </div>`;
 }
+async function initOdds() {
+  try {
+    const s = await (await fetch("/api/odds_status")).json();
+    if (s.odds_key_configured) {
+      $("useodds").disabled = false;
+      $("oddsToggle").title = "Blend live betting-market odds for sharper confidence";
+    } else {
+      $("oddsToggle").title = "Add ODDS_API_KEY to your .env to enable";
+      $("oddsToggle").style.opacity = "0.5";
+      $("oddsLabel").textContent = "Blend live odds (needs API key)";
+    }
+  } catch (e) {}
+}
 loadTeams();
+initOdds();
 </script>
 </body>
 </html>

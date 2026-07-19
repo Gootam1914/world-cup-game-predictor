@@ -1,66 +1,79 @@
 # Soccer Game Predictor
 
-Predict the result of any international men's football matchup with an
-**XGBoost expected-goals model** trained on **StatsBomb Open Data**. Pick two
-national teams and get a projected scoreline, win / draw / loss probabilities,
-and a confidence score — through a clean web UI.
+Predict the result of any international football matchup. Pick two national
+teams and get a projected scoreline, win / draw / loss probabilities, and a
+confidence score — through a clean web UI, powered by an **Elo + form XGBoost
+model** trained on **150 years of international results**.
 
-![prediction](https://img.shields.io/badge/model-XGBoost-blue) ![data](https://img.shields.io/badge/data-StatsBomb-orange) ![python](https://img.shields.io/badge/python-3.10%2B-green)
+![model](https://img.shields.io/badge/model-XGBoost%20%2B%20Elo-blue) ![data](https://img.shields.io/badge/matches-49k-orange) ![python](https://img.shields.io/badge/python-3.10%2B-green)
 
 ---
 
 ## What it does
 
-You select **Team A** and **Team B** (with flags). The model builds a 20-feature
-matchup vector from each team's historical performance and predicts the expected
-goals for each side. Those two rates are treated as independent Poisson
-distributions, from which we derive:
+Select **Team A** and **Team B**. The model reads each team's current strength
+(a live Elo rating), recent form, momentum, head-to-head record and the match
+context, and predicts expected goals for each side. Those become a full
+scoreline distribution (with a Dixon-Coles low-score correction), yielding:
 
-- the **most likely scoreline** (e.g. `Argentina 1 – 1 Spain`)
+- the **most likely scoreline** (e.g. `France 2 – 1 Morocco`)
 - **win / draw / loss** probabilities
-- a **confidence** score and band (Low / Medium / High) — the share of
-  probability sitting on the most likely result
+- a **confidence** score and band (Low / Medium / High)
 
-## The 20 features
-
-Each is built directly from StatsBomb event data (per-team season-to-date
-averages), matching the model's `FEATURE_COLS`:
-
-| Home | Away | Context |
-|------|------|---------|
-| `home_xg_for_avg` | `away_xg_for_avg` | `h2h_home_wins` |
-| `home_xg_against_avg` | `away_xg_against_avg` | `h2h_draws` |
-| `home_goals_for_avg` | `away_goals_for_avg` | `h2h_away_wins` |
-| `home_goals_against_avg` | `away_goals_against_avg` | `is_neutral` |
-| `home_shot_accuracy_pct` | `away_shot_accuracy_pct` | |
-| `home_possession_pct` | `away_possession_pct` | |
-| `home_progressive_passes_pct` | `away_progressive_passes_pct` | |
-| `home_confederation` | `away_confederation` | |
-
-## Training data
-
-StatsBomb's free open data covers these modern international men's tournaments
-with full event detail (~314 matches, 76 national teams):
-
-FIFA World Cup 2018 · FIFA World Cup 2022 · UEFA Euro 2020 · UEFA Euro 2024 ·
-Copa América 2024 · Africa Cup of Nations 2023
+Every one of **237 currently-active national teams** is selectable, each shown
+with its flag and up-to-date Elo rating.
 
 ## Model performance
 
-Evaluated with **leave-one-tournament-out** cross-validation — the model is
-tested on a whole tournament it never saw during training, which mirrors the
-World-Cup use case.
+Evaluated with an honest **chronological backtest**: trained on matches before
+2023, tested on the **3,708 matches from 2023 to mid-2026** the model never saw.
 
-| Metric | Value | Baseline |
-|--------|-------|----------|
-| Outcome accuracy (3-way) | **51.9%** | 40.1% (always pick home) |
-| Multiclass log-loss | **0.999** | 1.099 (random) |
-| Multiclass Brier | 0.598 | — |
-| Goals MAE | 0.86 | — |
-| Goals RMSE | 1.13 | — |
+| Model | Accuracy | Log-loss | Brier | RPS |
+|-------|----------|----------|-------|-----|
+| **This model (ensemble)** | **60.8%** | **0.853** | **0.502** | **0.332** |
+| Goals model only | 60.8% | 0.855 | 0.502 | 0.332 |
+| Elo-only baseline | 60.5% | 0.865 | 0.509 | 0.337 |
+| Always predict home win | 47.2% | — | — | — |
 
-Top features by gain: `home_xg_for_avg`, `away_xg_for_avg`, confederation, and
-shot accuracy — exactly what you'd expect to drive results.
+The final model is an **ensemble**: 60% the Poisson goals model + 40% a direct
+XGBoost outcome classifier, trained on all results since 1994 (~26k matches)
+with recency weighting.
+
+RPS (ranked probability score) of ~0.33 is competitive with published
+international-football forecasting models. For context, 3-way football outcomes
+top out in the mid-50s%/low-60s% even for bookmakers — the sport is genuinely
+high-variance — so the gains here come mainly from a strong, current
+team-strength signal and good calibration.
+
+## How the model works
+
+1. **Elo ratings** — a single chronological pass over ~49,000 international
+   matches (1872–2026) computes each team's rating using the World Football Elo
+   conventions: a margin-of-victory multiplier and a tournament-importance
+   weight (World Cup K=60 … friendly K=20), plus home advantage. Ratings are
+   always current, so predictions reflect today's strengths.
+2. **Features** — for every match the model uses only pre-kickoff information
+   (no leakage): Elo of each side and their difference, rolling form (goals
+   for/against and points over the last 10 games), rest days, head-to-head rate,
+   neutral-venue flag, tournament importance, confederation, and Elo momentum.
+3. **Goals model** — two XGBoost regressors (`objective=count:poisson`) predict
+   expected goals for each side, trained with recency weighting so modern
+   football counts more.
+4. **Scoreline** — the two expected-goal rates form a score matrix (independent
+   Poisson + a Dixon-Coles correction, ρ=−0.12, fitted on validation) that gives
+   the projected scoreline.
+5. **Ensemble** — the goals model's implied win/draw/loss probabilities are
+   blended (60/40) with a direct XGBoost outcome classifier for the final
+   probabilities and confidence, which improves calibration.
+
+## Data
+
+- **Primary:** [martj42/international_results](https://github.com/martj42/international_results)
+  — ~49k international matches, updated within days of every game. Committed to
+  the repo so the model works out of the box; refresh anytime.
+- **Optional (legacy):** StatsBomb Open Data powers an earlier event-level model
+  (xG, possession, progressive passes) kept in the repo under `src/statsbomb_loader.py`,
+  `src/features.py`, `src/train.py`. See "Legacy model" below.
 
 ---
 
@@ -69,39 +82,31 @@ shot accuracy — exactly what you'd expect to drive results.
 ```bash
 git clone <your-repo-url>
 cd "Soccer Game Predictor"
-python -m venv .venv && source .venv/bin/activate   # optional
-pip install -r requirements.txt
+npm run dev          # sets up Python, installs deps, launches the app
 ```
 
-The repo ships with pre-built features and trained models, so you can run the
-app immediately:
+`npm run dev` opens the app at http://127.0.0.1:8000. (The model runs on Python,
+so Python 3 must be installed — the launcher tells you if it isn't. Not a Node
+user? Double-click `Start Match Predictor.command`, or run
+`uvicorn app.api:app --reload`.)
+
+The repo ships with trained models and current ratings, so it runs immediately.
+
+### Rebuild / keep data fresh
 
 ```bash
-uvicorn app.api:app --reload
-# open http://127.0.0.1:8000
+python scripts/build_all.py            # rebuild ratings, retrain, backtest, flags
+python scripts/build_all.py --refresh  # download the latest results first
 ```
 
-### Rebuild from scratch / keep data fresh
+### Improve / experiment
 
 ```bash
-python scripts/build_all.py            # sync data -> features -> train -> evaluate
-python scripts/build_all.py --refresh  # git pull the latest StatsBomb data first
+python -m src.elo             # rebuild Elo ratings + features only
+python -m src.train_intl      # retrain + print the chronological backtest
+python scripts/tune_intl.py 24   # hyperparameter search (time-honest split)
+python scripts/build_flags.py    # regenerate the flag map
 ```
-
-Re-running this is how you "keep the data as updated as possible": it pulls any
-newly published StatsBomb matches, rebuilds the features, and retrains.
-
-### Improve / retune the model
-
-```bash
-python scripts/train_multi.py 10   # train 10 seeds, keep the most stable
-python scripts/tune.py 40          # randomised hyperparameter search (CV-scored)
-```
-
-`tune.py` writes `models/best_params.json`, which training then uses
-automatically. On this dataset tuning yields a small calibration gain
-(log-loss 0.999 → 0.991, Brier 0.598 → 0.593) with accuracy flat — the model is
-near its ceiling, so the bigger levers are more data and richer features.
 
 ### Command-line prediction
 
@@ -111,23 +116,35 @@ python -m src.predict Brazil France
 
 ---
 
+## Higher, justified confidence: live market odds
+
+The model is already **well-calibrated** — when it says 62%, it's right ~61% of
+the time — so artificially inflating the confidence number would just make it
+lie (the research term is "sharpness *subject to* calibration"). The only honest
+way to raise confidence is a sharper *input signal*, and the strongest one in
+football is the **betting market**: de-vigged odds are ~perfectly calibrated
+(r≈0.995 vs actual frequencies) and beat rating models head-to-head.
+
+So `src/market_odds.py` blends live market odds into the prediction when you
+supply a free key. It:
+
+1. fetches live 1X2 odds for a real fixture from **The Odds API** (free tier,
+   500 requests/month; covers World Cup, qualifiers, Euro, Nations League, Copa
+   América, AFCON, Gold Cup);
+2. removes the bookmaker margin with **Shin's method**;
+3. blends market + model probabilities via a **logarithmic opinion pool**.
+
+Enable it by adding `ODDS_API_KEY` to `.env`, then toggle "Blend live odds" in
+the app. It only affects **scheduled fixtures** (odds don't exist for
+hypothetical matchups) and falls back to the pure model otherwise.
+
 ## Optional live modules (current rosters + gap-fill)
 
-These need an API key and internet access, so they run on your machine. The
-model and UI work fully **without** them. Copy `.env.example` to `.env` and add
-any keys you have:
+`.env`-keyed helpers you run locally (see `.env.example`). The model works fully
+without them.
 
-```
-API_FOOTBALL_KEY=...        # api-football.com  -> current national-team squads
-FOOTBALL_DATA_ORG_KEY=...   # football-data.org -> recent international results
-```
-
-- `python -m src.roster_fetch Argentina` — fetch the current squad (shown in the
-  app when a key is present).
-- `python -m src.football_data_api` — append recent international results that
-  StatsBomb hasn't published yet, keeping team profiles current.
-
-Both degrade gracefully to a no-op when the key is missing.
+- `python -m src.roster_fetch Argentina` — current squad via API-Football.
+- `python -m src.football_data_api` — recent results via football-data.org.
 
 ---
 
@@ -135,52 +152,50 @@ Both degrade gracefully to a no-op when the key is missing.
 
 ```
 Soccer Game Predictor/
-├── config.py                 # paths, 20-feature schema, team metadata
+├── config.py                 # paths, schemas, team metadata
 ├── src/
-│   ├── statsbomb_loader.py    # partial + sparse git clone of StatsBomb data
-│   ├── features.py            # build the 20 features from events
-│   ├── model.py               # Poisson scoreline maths + confidence
-│   ├── train.py               # train + save the two XGBoost regressors
-│   ├── evaluate.py            # leave-one-tournament-out cross-validation
-│   ├── predict.py             # serving-time prediction
-│   ├── roster_fetch.py        # (optional) current squads via API-Football
-│   └── football_data_api.py   # (optional) gap-fill via football-data.org
+│   ├── elo.py                 # Elo ratings + feature builder (primary)
+│   ├── train_intl.py          # train + chronological backtest (primary)
+│   ├── predict.py             # serving-time prediction (Elo model)
+│   ├── model.py               # Poisson + Dixon-Coles scoreline maths
+│   ├── statsbomb_loader.py    # legacy: StatsBomb data loader
+│   ├── features.py / train.py # legacy: 20-feature event model
+│   ├── roster_fetch.py        # optional current squads
+│   └── football_data_api.py   # optional recent-results gap-fill
 ├── app/
-│   ├── api.py                 # FastAPI backend (/api/teams, /api/predict)
+│   ├── api.py                 # FastAPI backend
 │   └── web/index.html         # single-page UI
-├── scripts/build_all.py       # one-command pipeline
-├── models/                    # trained models + metrics (committed)
-├── data/processed/            # cached features + match list (committed)
-├── data/raw/                  # StatsBomb clone cache (git-ignored, regenerable)
-└── tests/test_model.py
+├── scripts/
+│   ├── build_all.py           # one-command pipeline
+│   ├── tune_intl.py           # hyperparameter search
+│   └── build_flags.py         # team -> flag map
+├── models/                    # trained models + backtest metrics
+├── data/
+│   ├── international_results.csv   # ~49k matches (committed)
+│   └── processed/                 # current_ratings.json, flags, etc.
+└── tests/
 ```
 
-## How it works
+## Legacy model
 
-1. **Load** — `statsbomb_loader.py` does a blobless, sparse git clone so only the
-   JSON we need (matches + events for the six tournaments) is downloaded.
-2. **Engineer** — `features.py` reduces each match to per-team metrics (xG,
-   goals, shot accuracy, possession share, progressive-pass rate), then averages
-   them into team-strength profiles. Profiles are computed leave-one-match-out to
-   avoid target leakage. Confederation, head-to-head record, and a neutral-venue
-   flag complete the 20 features.
-3. **Train** — two well-regularised XGBoost regressors (`objective=count:poisson`)
-   predict expected goals for the home and away side.
-4. **Predict** — expected goals become independent Poisson rates; enumerating the
-   score matrix yields the scoreline, outcome probabilities, and confidence.
+The original model (exactly 20 StatsBomb event features — xG, possession,
+progressive passes, etc. — across six modern tournaments) is preserved in the
+repo. It reached ~52% outcome accuracy on ~314 matches; the Elo model
+superseded it by training on ~150× more data. Rebuild it with
+`python scripts/train_multi.py` / `python scripts/tune.py` (see `src/train.py`).
 
 ## Notes & limitations
 
-- ~314 international matches is a modest dataset, so probabilities are
-  deliberately calibrated rather than overconfident — football is high-variance.
-- Possession is approximated by share of passes; progressive passes use a
-  distance-to-goal threshold on StatsBomb's direction-normalised coordinates.
-- The cross-validation caveat: team profiles are built across all tournaments, so
-  a small amount of cross-tournament information is shared. Same-match leakage is
-  fully prevented.
+- International football is high-variance; even a strong model is right on the
+  outcome ~60% of the time. Treat probabilities as probabilities, not certainties.
+- Elo captures most of the signal; the extra features add small, consistent
+  calibration gains.
+- The backtest is a true forward-in-time split, so the reported numbers reflect
+  genuine out-of-sample performance.
 
 ## License & attribution
 
-MIT (see `LICENSE`). This project uses
-[StatsBomb Open Data](https://github.com/statsbomb/open-data); any public use of
-derived work must credit StatsBomb per their user agreement.
+MIT (see `LICENSE`). Match data from
+[martj42/international_results](https://github.com/martj42/international_results)
+and [StatsBomb Open Data](https://github.com/statsbomb/open-data); please credit
+both in any public use.

@@ -1,0 +1,58 @@
+{
+  "trained_at": "2026-07-19T03:17:12.134630+00:00",
+  "model": "Ensemble: XGBoost Poisson goals (0.6) + XGBoost outcome classifier (0.4)",
+  "feature_cols": [
+    "elo_home",
+    "elo_away",
+    "elo_diff",
+    "home_gf_avg",
+    "home_ga_avg",
+    "home_pts_avg",
+    "away_gf_avg",
+    "away_ga_avg",
+    "away_pts_avg",
+    "home_rest_days",
+    "away_rest_days",
+    "h2h_home_rate",
+    "h2h_played",
+    "neutral",
+    "tournament_importance",
+    "home_confederation",
+    "away_confederation",
+    "home_elo_momentum",
+    "away_elo_momentum"
+  ],
+  "blend_weights": [
+    0.6,
+    0.4
+  ],
+  "train_from_year": 1994,
+  "n_train_matches": 30015,
+  "backtest": {
+    "train_matches": 26307,
+    "test_matches": 3708,
+    "test_period": "2023-01-01 to 2026-07-15",
+    "ensemble_model": {
+      "accuracy": 0.6071,
+      "logloss": 0.8532,
+      "brier": 0.5019,
+      "rps": 0.3319
+    },
+    "goals_model_only": {
+      "accuracy": 0.6081,
+      "logloss": 0.855,
+      "brier": 0.5023,
+      "rps": 0.3323
+    },
+    "elo_only_baseline": {
+      "accuracy": 0.6054,
+      "logloss": 0.8653,
+      "brier": 0.509,
+      "rps": 0.3372
+    },
+    "always_home_baseline": {
+      "accuracy": 0.472
+    }
+  },
+  "data_source": "martj42/international_results (~49k matches)"
+}

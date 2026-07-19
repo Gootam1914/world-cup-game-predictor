@@ -70,7 +70,12 @@ team-strength signal and good calibration.
 
 - **Primary:** [martj42/international_results](https://github.com/martj42/international_results)
   — ~49k international matches, updated within days of every game. Committed to
-  the repo so the model works out of the box; refresh anytime.
+  the repo so the model works out of the box; refresh anytime. **This already
+  includes the 2026 World Cup** — every completed match is in the training data,
+  which is why the finalists top the Elo table.
+- **2026 World Cup database:** `scripts/build_wc2026_db.py` extracts the real
+  2026 results and per-team tournament standings to
+  `data/world_cup_2026_results.csv` and `data/world_cup_2026_standings.csv`.
 - **Optional (legacy):** StatsBomb Open Data powers an earlier event-level model
   (xG, possession, progressive passes) kept in the repo under `src/statsbomb_loader.py`,
   `src/features.py`, `src/train.py`. See "Legacy model" below.

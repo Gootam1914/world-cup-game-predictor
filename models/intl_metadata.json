@@ -1,5 +1,5 @@
 {
-  "trained_at": "2026-07-19T03:17:12.134630+00:00",
+  "trained_at": "2026-07-19T03:53:40.788417+00:00",
   "model": "Ensemble: XGBoost Poisson goals (0.6) + XGBoost outcome classifier (0.4)",
   "feature_cols": [
     "elo_home",
@@ -33,15 +33,15 @@
     "test_matches": 3708,
     "test_period": "2023-01-01 to 2026-07-15",
     "ensemble_model": {
-      "accuracy": 0.6071,
-      "logloss": 0.8532,
-      "brier": 0.5019,
+      "accuracy": 0.6076,
+      "logloss": 0.8533,
+      "brier": 0.502,
       "rps": 0.3319
     },
     "goals_model_only": {
-      "accuracy": 0.6081,
-      "logloss": 0.855,
-      "brier": 0.5023,
+      "accuracy": 0.609,
+      "logloss": 0.8549,
+      "brier": 0.5022,
       "rps": 0.3323
     },
     "elo_only_baseline": {

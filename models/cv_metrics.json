@@ -1,0 +1,6 @@
+{
+  "accuracy": 0.5127,
+  "logloss": 0.9911,
+  "brier": 0.5927,
+  "goals_RMSE": 1.1315
+}

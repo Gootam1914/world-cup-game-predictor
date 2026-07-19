@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Match Predictor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #eef1f5; --card: #ffffff; --ink: #0d1420; --muted: #6a7482;
+    --line: #e1e5ec; --line2: #cfd5de;
+    --blue: #1e5eb8; --navy: #0d1b33; --red: #d1495b; --gray: #b7bfca;
+    --green: #1f7a46; --amber: #8a6b16;
+    --font: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg);
+    min-height: 100vh; padding: 0 16px 80px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  .topbar { background: var(--navy); margin: 0 -16px 30px; padding: 22px 16px; }
+  .topbar .inner { max-width: 860px; margin: 0 auto; }
+  .topbar h1 {
+    color: #fff; font-size: 30px; font-weight: 900; margin: 0;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .topbar h1 span { color: #6fa8e6; }
+  .topbar p { color: #9fb0c6; margin: 4px 0 0; font-size: 13px; font-weight: 500; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+
+  .selectors { display: grid; grid-template-columns: 1fr 48px 1fr; gap: 14px; align-items: end; }
+  .vs { text-align: center; color: var(--muted); font-weight: 800; font-size: 14px; padding-bottom: 13px; }
+  label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+          font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+  .flag-preview {
+    display: flex; align-items: center; gap: 12px; background: var(--bg);
+    border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; min-height: 54px;
+  }
+  .flag-preview img { width: 40px; height: 27px; object-fit: cover; border: 1px solid var(--line2); background: #dde; }
+  .flag-preview .nm { font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .3px; }
+  .flag-preview .cf { color: var(--muted); font-size: 12px; font-weight: 600; }
+  select {
+    width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid var(--line2);
+    background: #fff; color: var(--ink); font-size: 15px; font-family: var(--font); font-weight: 600;
+    appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%236a7482' stroke-width='1.8' fill='none'/></svg>");
+    background-repeat: no-repeat; background-position: right 14px center;
+  }
+  .controls { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; gap: 16px; flex-wrap: wrap; }
+  .toggle { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; font-weight: 600; }
+  .switch { position: relative; width: 42px; height: 24px; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider { position: absolute; inset: 0; background: var(--line2); border-radius: 999px; transition: .15s; cursor: pointer; }
+  .slider::before { content: ""; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .15s; }
+  .switch input:checked + .slider { background: var(--blue); }
+  .switch input:checked + .slider::before { transform: translateX(18px); }
+  button.predict {
+    background: var(--blue); color: #fff; border: none; padding: 13px 30px; font-size: 14px; font-weight: 800;
+    border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font);
+  }
+  button.predict:hover { background: #184e99; }
+  button.predict:active { transform: translateY(1px); }
+
+  #result { margin-top: 20px; }
+  .eyebrow { color: var(--muted); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 18px; text-align: center; }
+  .matchup { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+  .team-block { text-align: center; }
+  .team-block img { width: 72px; height: 48px; object-fit: cover; border: 1px solid var(--line2); }
+  .team-block .name { font-weight: 900; margin-top: 10px; font-size: 17px; text-transform: uppercase; letter-spacing: .3px; }
+  .team-block .conf { color: var(--muted); font-size: 12px; font-weight: 600; }
+  .score { font-size: 48px; font-weight: 900; }
+  .score .sep { color: var(--line2); margin: 0 10px; }
+  .xg { text-align: center; color: var(--muted); font-size: 12px; font-weight: 600; margin-top: 2px;
+    text-transform: uppercase; letter-spacing: .5px; }
+
+  .probs { margin-top: 24px; }
+  .prob-bar { display: flex; height: 38px; border-radius: 4px; overflow: hidden; }
+  .prob-bar div { display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: #fff; }
+  .seg-home { background: var(--blue); }
+  .seg-draw { background: var(--gray); color: var(--ink) !important; }
+  .seg-away { background: var(--red); }
+  .prob-legend { display: flex; justify-content: space-between; margin-top: 8px; color: var(--muted); font-size: 12px; font-weight: 600; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+
+  .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+  .box { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
+  .box h4 { margin: 0 0 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
+  .conf-pill { display: inline-block; padding: 6px 14px; border-radius: 4px; font-weight: 800; font-size: 15px; color: #fff; }
+  .conf-High { background: var(--green); } .conf-Medium { background: var(--amber); } .conf-Low { background: var(--muted); }
+  .conf-sub { color: var(--muted); font-size: 12px; font-weight: 500; margin-top: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: #fff; border: 1px solid var(--line2); border-radius: 4px; padding: 7px 11px; font-size: 13px; font-weight: 700; }
+  .chip span { color: var(--muted); font-size: 11px; font-weight: 600; }
+
+  .loading { text-align: center; color: var(--muted); padding: 30px; font-weight: 600; }
+  .spinner { width: 28px; height: 28px; border: 3px solid var(--line2); border-top-color: var(--blue);
+    border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error { color: var(--red); text-align: center; padding: 16px; font-weight: 600; }
+  footer { text-align: center; color: var(--muted); font-size: 11px; margin-top: 28px; font-weight: 500; }
+  footer a { color: var(--blue); text-decoration: none; }
+  @media (max-width: 600px) {
+    .selectors { grid-template-columns: 1fr; } .vs { display: none; }
+    .meta { grid-template-columns: 1fr; } .score { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar"><div class="inner">
+    <h1>Match <span>Predictor</span></h1>
+    <p>International football result forecasts</p>
+  </div></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="selectors">
+        <div>
+          <label>Team A</label>
+          <div class="flag-preview"><img id="flagHome" alt="" /><div><div class="nm" id="nmHome">—</div><div class="cf" id="cfHome"></div></div></div>
+          <select id="home"></select>
+        </div>
+        <div class="vs">VS</div>
+        <div>
+          <label>Team B</label>
+          <div class="flag-preview"><img id="flagAway" alt="" /><div><div class="nm" id="nmAway">—</div><div class="cf" id="cfAway"></div></div></div>
+          <select id="away"></select>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="toggle"><label class="switch"><input type="checkbox" id="neutral" checked /><span class="slider"></span></label>Neutral venue</div>
+        <button class="predict" id="go">Predict</button>
+      </div>
+    </div>
+
+    <div id="result"></div>
+
+    <footer>Data &copy; <a href="https://github.com/statsbomb/open-data" target="_blank">StatsBomb</a></footer>
+  </div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let TEAMS = [];
+const flagURL = (code) => `https://flagcdn.com/w80/${code}.png`;
+const cap = (s) => s[0].toUpperCase() + s.slice(1);
+const pct = (x) => Math.round(x * 100);
+
+async function loadTeams() {
+  const r = await fetch("/api/teams");
+  TEAMS = (await r.json()).teams;
+  const opt = (t) => `<option value="${t.name}">${t.name}</option>`;
+  $("home").innerHTML = TEAMS.map(opt).join("");
+  $("away").innerHTML = TEAMS.map(opt).join("");
+  $("home").value = teamByName("Argentina") ? "Argentina" : TEAMS[0].name;
+  $("away").value = teamByName("Spain") ? "Spain" : TEAMS[1].name;
+  syncPreview("home"); syncPreview("away");
+}
+function teamByName(n) { return TEAMS.find((t) => t.name === n); }
+function syncPreview(side) {
+  const t = teamByName($(side).value); if (!t) return;
+  $("flag" + cap(side)).src = flagURL(t.flag);
+  $("nm" + cap(side)).textContent = t.name;
+  $("cf" + cap(side)).textContent = t.confederation;
+}
+$("home").addEventListener("change", () => syncPreview("home"));
+$("away").addEventListener("change", () => syncPreview("away"));
+
+$("go").addEventListener("click", async () => {
+  const home = $("home").value, away = $("away").value;
+  if (home === away) { showError("Pick two different teams."); return; }
+  $("result").innerHTML = `<div class="card loading"><div class="spinner"></div>Calculating…</div>`;
+  try {
+    const r = await fetch("/api/predict", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ home, away, neutral: $("neutral").checked }),
+    });
+    if (!r.ok) { const e = await r.json(); showError(e.detail || "Something went wrong."); return; }
+    render(await r.json());
+  } catch (e) { showError("Could not reach the server."); }
+});
+function showError(msg) { $("result").innerHTML = `<div class="card error">${msg}</div>`; }
+
+function render(p) {
+  const h = teamByName(p.home_team), a = teamByName(p.away_team);
+  const ph = pct(p.p_home_win), pd = pct(p.p_draw), pa = pct(p.p_away_win);
+  const chips = p.top_scorelines.slice(0, 5).map((s) =>
+    `<div class="chip">${s[0]}&ndash;${s[1]} <span>${pct(s[2])}%</span></div>`).join("");
+  $("result").innerHTML = `
+  <div class="card">
+    <div class="eyebrow">Predicted Result</div>
+    <div class="matchup">
+      <div class="team-block"><img src="${flagURL(p.home_flag)}" alt="">
+        <div class="name">${p.home_team}</div><div class="conf">${h ? h.confederation : ""}</div></div>
+      <div style="text-align:center">
+        <div class="score">${p.likely_home_goals}<span class="sep">&ndash;</span>${p.likely_away_goals}</div>
+        <div class="xg">proj. ${p.exp_home_goals} &ndash; ${p.exp_away_goals}</div>
+      </div>
+      <div class="team-block"><img src="${flagURL(p.away_flag)}" alt="">
+        <div class="name">${p.away_team}</div><div class="conf">${a ? a.confederation : ""}</div></div>
+    </div>
+
+    <div class="probs">
+      <div class="prob-bar">
+        <div class="seg-home" style="flex:${ph}">${ph >= 8 ? ph + "%" : ""}</div>
+        <div class="seg-draw" style="flex:${pd}">${pd >= 8 ? pd + "%" : ""}</div>
+        <div class="seg-away" style="flex:${pa}">${pa >= 8 ? pa + "%" : ""}</div>
+      </div>
+      <div class="prob-legend">
+        <span><span class="dot" style="background:var(--blue)"></span>${p.home_team} win</span>
+        <span><span class="dot" style="background:var(--gray)"></span>Draw</span>
+        <span><span class="dot" style="background:var(--red)"></span>${p.away_team} win</span>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div class="box"><h4>Confidence</h4>
+        <span class="conf-pill conf-${p.confidence_band}">${p.confidence}% &middot; ${p.confidence_band}</span>
+        <div class="conf-sub">Likelihood of the projected result.</div></div>
+      <div class="box"><h4>Likely scorelines</h4><div class="chips">${chips}</div></div>
+    </div>
+  </div>`;
+}
+loadTeams();
+</script>
+</body>
+</html>

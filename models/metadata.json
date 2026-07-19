@@ -1,0 +1,83 @@
+{
+  "trained_at": "2026-07-19T01:57:40.892982+00:00",
+  "n_matches": 314,
+  "feature_cols": [
+    "home_xg_for_avg",
+    "home_xg_against_avg",
+    "home_goals_for_avg",
+    "home_goals_against_avg",
+    "home_shot_accuracy_pct",
+    "home_possession_pct",
+    "home_progressive_passes_pct",
+    "home_confederation",
+    "away_xg_for_avg",
+    "away_xg_against_avg",
+    "away_goals_for_avg",
+    "away_goals_against_avg",
+    "away_shot_accuracy_pct",
+    "away_possession_pct",
+    "away_progressive_passes_pct",
+    "away_confederation",
+    "h2h_home_wins",
+    "h2h_draws",
+    "h2h_away_wins",
+    "is_neutral"
+  ],
+  "tournaments": [
+    "FIFA World Cup 2018",
+    "FIFA World Cup 2022",
+    "UEFA Euro 2020",
+    "UEFA Euro 2024",
+    "Copa America 2024",
+    "African Cup of Nations 2023"
+  ],
+  "selection": "best of 36 random search candidates by CV log-loss",
+  "xgb_params": {
+    "objective": "count:poisson",
+    "random_state": 42,
+    "n_jobs": 4,
+    "n_estimators": 400,
+    "max_depth": 3,
+    "learning_rate": 0.05,
+    "subsample": 1.0,
+    "colsample_bytree": 0.9,
+    "min_child_weight": 4,
+    "reg_lambda": 1.5,
+    "reg_alpha": 0.0
+  },
+  "cv_best": {
+    "accuracy": 0.5127,
+    "logloss": 0.9911,
+    "brier": 0.5927,
+    "goals_RMSE": 1.1315
+  },
+  "cv_baseline": {
+    "accuracy": 0.5191,
+    "logloss": 0.9986,
+    "brier": 0.5983,
+    "goals_RMSE": 1.1299
+  },
+  "home_feature_importance_gain": {
+    "home_xg_for_avg": 0.09613906592130661,
+    "home_xg_against_avg": 0.04356740415096283,
+    "home_goals_for_avg": 0.057334642857313156,
+    "home_goals_against_avg": 0.05851581692695618,
+    "home_shot_accuracy_pct": 0.06672590970993042,
+    "home_possession_pct": 0.039328716695308685,
+    "home_progressive_passes_pct": 0.060087282210588455,
+    "home_confederation": 0.1296510100364685,
+    "away_xg_for_avg": 0.08232284337282181,
+    "away_xg_against_avg": 0.05809437856078148,
+    "away_goals_for_avg": 0.04120954871177673,
+    "away_goals_against_avg": 0.06539174914360046,
+    "away_shot_accuracy_pct": 0.030101923272013664,
+    "away_possession_pct": 0.04497548192739487,
+    "away_progressive_passes_pct": 0.04103247821331024,
+    "away_confederation": 0.07163332402706146,
+    "h2h_home_wins": 0.01388839352875948,
+    "h2h_draws": 0.0,
+    "h2h_away_wins": 0.0,
+    "is_neutral": 0.0
+  },
+  "data_source": "StatsBomb Open Data"
+}

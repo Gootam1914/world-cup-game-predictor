@@ -1,0 +1,315 @@
+match_id,competition_id,season_id,match_date,home_team,away_team,home_score,away_score,stage
+7525,43,3,2018-06-14,Russia,Saudi Arabia,5,0,Group Stage
+7576,43,3,2018-06-15,Portugal,Spain,3,3,Group Stage
+7577,43,3,2018-06-15,Morocco,Iran,0,1,Group Stage
+7578,43,3,2018-06-15,Egypt,Uruguay,0,1,Group Stage
+7532,43,3,2018-06-16,Peru,Denmark,0,1,Group Stage
+7530,43,3,2018-06-16,France,Australia,2,1,Group Stage
+7529,43,3,2018-06-16,Croatia,Nigeria,2,0,Group Stage
+7531,43,3,2018-06-16,Argentina,Iceland,1,1,Group Stage
+7535,43,3,2018-06-17,Costa Rica,Serbia,0,1,Group Stage
+7533,43,3,2018-06-17,Brazil,Switzerland,1,1,Group Stage
+7534,43,3,2018-06-17,Germany,Mexico,0,1,Group Stage
+7538,43,3,2018-06-18,Sweden,South Korea,1,0,Group Stage
+7537,43,3,2018-06-18,Tunisia,England,1,2,Group Stage
+7536,43,3,2018-06-18,Belgium,Panama,3,0,Group Stage
+7539,43,3,2018-06-19,Poland,Senegal,1,2,Group Stage
+7541,43,3,2018-06-19,Colombia,Japan,1,2,Group Stage
+7540,43,3,2018-06-19,Russia,Egypt,3,1,Group Stage
+7543,43,3,2018-06-20,Iran,Spain,0,1,Group Stage
+7544,43,3,2018-06-20,Uruguay,Saudi Arabia,1,0,Group Stage
+7542,43,3,2018-06-20,Portugal,Morocco,1,0,Group Stage
+7545,43,3,2018-06-21,Argentina,Croatia,0,3,Group Stage
+7547,43,3,2018-06-21,Denmark,Australia,1,1,Group Stage
+7546,43,3,2018-06-21,France,Peru,1,0,Group Stage
+7549,43,3,2018-06-22,Nigeria,Iceland,2,0,Group Stage
+7548,43,3,2018-06-22,Brazil,Costa Rica,2,0,Group Stage
+7550,43,3,2018-06-22,Serbia,Switzerland,1,2,Group Stage
+7551,43,3,2018-06-23,Germany,Sweden,2,1,Group Stage
+7553,43,3,2018-06-23,South Korea,Mexico,1,2,Group Stage
+7552,43,3,2018-06-23,Belgium,Tunisia,5,2,Group Stage
+7555,43,3,2018-06-24,Poland,Colombia,0,3,Group Stage
+7556,43,3,2018-06-24,Japan,Senegal,2,2,Group Stage
+7554,43,3,2018-06-24,England,Panama,6,1,Group Stage
+7559,43,3,2018-06-25,Saudi Arabia,Egypt,2,1,Group Stage
+7557,43,3,2018-06-25,Iran,Portugal,1,1,Group Stage
+7560,43,3,2018-06-25,Spain,Morocco,2,2,Group Stage
+7558,43,3,2018-06-25,Uruguay,Russia,3,0,Group Stage
+7563,43,3,2018-06-26,Denmark,France,0,0,Group Stage
+7561,43,3,2018-06-26,Iceland,Croatia,1,2,Group Stage
+7562,43,3,2018-06-26,Australia,Peru,0,2,Group Stage
+7564,43,3,2018-06-26,Nigeria,Argentina,1,2,Group Stage
+7567,43,3,2018-06-27,South Korea,Germany,2,0,Group Stage
+7568,43,3,2018-06-27,Switzerland,Costa Rica,2,2,Group Stage
+7565,43,3,2018-06-27,Serbia,Brazil,0,2,Group Stage
+7566,43,3,2018-06-27,Mexico,Sweden,0,3,Group Stage
+7571,43,3,2018-06-28,Senegal,Colombia,0,1,Group Stage
+7570,43,3,2018-06-28,England,Belgium,0,1,Group Stage
+7572,43,3,2018-06-28,Japan,Poland,0,1,Group Stage
+7569,43,3,2018-06-28,Panama,Tunisia,1,2,Group Stage
+7580,43,3,2018-06-30,France,Argentina,4,3,Round of 16
+7579,43,3,2018-06-30,Uruguay,Portugal,2,1,Round of 16
+7582,43,3,2018-07-01,Spain,Russia,1,1,Round of 16
+7581,43,3,2018-07-01,Croatia,Denmark,1,1,Round of 16
+7584,43,3,2018-07-02,Belgium,Japan,3,2,Round of 16
+7583,43,3,2018-07-02,Brazil,Mexico,2,0,Round of 16
+7586,43,3,2018-07-03,Sweden,Switzerland,1,0,Round of 16
+7585,43,3,2018-07-03,Colombia,England,1,1,Round of 16
+8650,43,3,2018-07-06,Brazil,Belgium,1,2,Quarter-finals
+8649,43,3,2018-07-06,Uruguay,France,0,2,Quarter-finals
+8651,43,3,2018-07-07,Sweden,England,0,2,Quarter-finals
+8652,43,3,2018-07-07,Russia,Croatia,2,2,Quarter-finals
+8655,43,3,2018-07-10,France,Belgium,1,0,Semi-finals
+8656,43,3,2018-07-11,Croatia,England,2,1,Semi-finals
+8657,43,3,2018-07-14,Belgium,England,2,0,3rd Place Final
+8658,43,3,2018-07-15,France,Croatia,4,2,Final
+3788741,55,43,2021-06-11,Turkey,Italy,0,3,Group Stage
+3788742,55,43,2021-06-12,Denmark,Finland,0,1,Group Stage
+3788744,55,43,2021-06-12,Wales,Switzerland,1,1,Group Stage
+3788743,55,43,2021-06-12,Belgium,Russia,3,0,Group Stage
+3788747,55,43,2021-06-13,Austria,North Macedonia,3,1,Group Stage
+3788745,55,43,2021-06-13,England,Croatia,1,0,Group Stage
+3788746,55,43,2021-06-13,Netherlands,Ukraine,3,2,Group Stage
+3788748,55,43,2021-06-14,Scotland,Czech Republic,0,2,Group Stage
+3788750,55,43,2021-06-14,Spain,Sweden,0,0,Group Stage
+3788749,55,43,2021-06-14,Poland,Slovakia,1,2,Group Stage
+3788752,55,43,2021-06-15,Hungary,Portugal,0,3,Group Stage
+3788751,55,43,2021-06-15,France,Germany,1,0,Group Stage
+3788753,55,43,2021-06-16,Finland,Russia,0,1,Group Stage
+3788755,55,43,2021-06-16,Turkey,Wales,0,2,Group Stage
+3788754,55,43,2021-06-16,Italy,Switzerland,3,0,Group Stage
+3788757,55,43,2021-06-17,Denmark,Belgium,1,2,Group Stage
+3788758,55,43,2021-06-17,Ukraine,North Macedonia,2,1,Group Stage
+3788756,55,43,2021-06-17,Netherlands,Austria,2,0,Group Stage
+3788759,55,43,2021-06-18,England,Scotland,0,0,Group Stage
+3788760,55,43,2021-06-18,Croatia,Czech Republic,1,1,Group Stage
+3788761,55,43,2021-06-18,Sweden,Slovakia,1,0,Group Stage
+3788762,55,43,2021-06-19,Spain,Poland,1,1,Group Stage
+3788764,55,43,2021-06-19,Portugal,Germany,2,4,Group Stage
+3788763,55,43,2021-06-19,Hungary,France,1,1,Group Stage
+3788765,55,43,2021-06-20,Switzerland,Turkey,3,1,Group Stage
+3788766,55,43,2021-06-20,Italy,Wales,1,0,Group Stage
+3788768,55,43,2021-06-21,Finland,Belgium,0,2,Group Stage
+3788770,55,43,2021-06-21,North Macedonia,Netherlands,0,3,Group Stage
+3788767,55,43,2021-06-21,Ukraine,Austria,0,1,Group Stage
+3788769,55,43,2021-06-21,Russia,Denmark,1,4,Group Stage
+3788772,55,43,2021-06-22,Czech Republic,England,0,1,Group Stage
+3788771,55,43,2021-06-22,Croatia,Scotland,3,1,Group Stage
+3788776,55,43,2021-06-23,Sweden,Poland,3,2,Group Stage
+3788775,55,43,2021-06-23,Slovakia,Spain,0,5,Group Stage
+3788773,55,43,2021-06-23,Portugal,France,2,2,Group Stage
+3788774,55,43,2021-06-23,Germany,Hungary,2,2,Group Stage
+3794685,55,43,2021-06-26,Italy,Austria,2,1,Round of 16
+3794689,55,43,2021-06-26,Wales,Denmark,0,4,Round of 16
+3794687,55,43,2021-06-27,Belgium,Portugal,1,0,Round of 16
+3794690,55,43,2021-06-27,Netherlands,Czech Republic,0,2,Round of 16
+3794691,55,43,2021-06-28,France,Switzerland,3,3,Round of 16
+3794686,55,43,2021-06-28,Croatia,Spain,3,5,Round of 16
+3794688,55,43,2021-06-29,England,Germany,2,0,Round of 16
+3794692,55,43,2021-06-29,Sweden,Ukraine,1,2,Round of 16
+3795108,55,43,2021-07-02,Switzerland,Spain,1,1,Quarter-finals
+3795107,55,43,2021-07-02,Belgium,Italy,1,2,Quarter-finals
+3795187,55,43,2021-07-03,Ukraine,England,0,4,Quarter-finals
+3795109,55,43,2021-07-03,Czech Republic,Denmark,1,2,Quarter-finals
+3795220,55,43,2021-07-06,Italy,Spain,1,1,Semi-finals
+3795221,55,43,2021-07-07,England,Denmark,2,1,Semi-finals
+3795506,55,43,2021-07-11,Italy,England,1,1,Final
+3857286,43,106,2022-11-20,Qatar,Ecuador,0,2,Group Stage
+3857282,43,106,2022-11-21,United States,Wales,1,1,Group Stage
+3857271,43,106,2022-11-21,England,Iran,6,2,Group Stage
+3857285,43,106,2022-11-21,Senegal,Netherlands,0,2,Group Stage
+3857279,43,106,2022-11-22,France,Australia,4,1,Group Stage
+3857254,43,106,2022-11-22,Denmark,Tunisia,0,0,Group Stage
+3857300,43,106,2022-11-22,Argentina,Saudi Arabia,1,2,Group Stage
+3857265,43,106,2022-11-22,Mexico,Poland,0,0,Group Stage
+3857284,43,106,2022-11-23,Germany,Japan,1,2,Group Stage
+3857268,43,106,2022-11-23,Belgium,Canada,1,0,Group Stage
+3857277,43,106,2022-11-23,Morocco,Croatia,0,0,Group Stage
+3857291,43,106,2022-11-23,Spain,Costa Rica,7,0,Group Stage
+3857258,43,106,2022-11-24,Brazil,Serbia,2,0,Group Stage
+3857287,43,106,2022-11-24,Uruguay,South Korea,0,0,Group Stage
+3857298,43,106,2022-11-24,Portugal,Ghana,3,2,Group Stage
+3857290,43,106,2022-11-24,Switzerland,Cameroon,1,0,Group Stage
+3857272,43,106,2022-11-25,England,United States,0,0,Group Stage
+3857301,43,106,2022-11-25,Qatar,Senegal,1,3,Group Stage
+3857274,43,106,2022-11-25,Netherlands,Ecuador,1,1,Group Stage
+3857273,43,106,2022-11-25,Wales,Iran,0,2,Group Stage
+3857289,43,106,2022-11-26,Argentina,Mexico,2,0,Group Stage
+3857266,43,106,2022-11-26,France,Denmark,2,1,Group Stage
+3857297,43,106,2022-11-26,Poland,Saudi Arabia,2,0,Group Stage
+3857288,43,106,2022-11-26,Tunisia,Australia,0,1,Group Stage
+3857295,43,106,2022-11-27,Japan,Costa Rica,0,1,Group Stage
+3857281,43,106,2022-11-27,Croatia,Canada,4,1,Group Stage
+3857263,43,106,2022-11-27,Spain,Germany,1,1,Group Stage
+3857283,43,106,2022-11-27,Belgium,Morocco,0,2,Group Stage
+3857270,43,106,2022-11-28,Portugal,Uruguay,2,0,Group Stage
+3857259,43,106,2022-11-28,Cameroon,Serbia,3,3,Group Stage
+3857269,43,106,2022-11-28,Brazil,Switzerland,1,0,Group Stage
+3857299,43,106,2022-11-28,South Korea,Ghana,2,3,Group Stage
+3857267,43,106,2022-11-29,Ecuador,Senegal,1,2,Group Stage
+3857294,43,106,2022-11-29,Netherlands,Qatar,2,0,Group Stage
+3857278,43,106,2022-11-29,Iran,United States,0,1,Group Stage
+3857261,43,106,2022-11-29,Wales,England,0,3,Group Stage
+3857257,43,106,2022-11-30,Australia,Denmark,1,0,Group Stage
+3857264,43,106,2022-11-30,Poland,Argentina,0,2,Group Stage
+3857260,43,106,2022-11-30,Saudi Arabia,Mexico,1,2,Group Stage
+3857275,43,106,2022-11-30,Tunisia,France,1,0,Group Stage
+3857296,43,106,2022-12-01,Croatia,Belgium,0,0,Group Stage
+3857255,43,106,2022-12-01,Japan,Spain,2,1,Group Stage
+3857276,43,106,2022-12-01,Canada,Morocco,1,2,Group Stage
+3857292,43,106,2022-12-01,Costa Rica,Germany,2,4,Group Stage
+3857256,43,106,2022-12-02,Serbia,Switzerland,2,3,Group Stage
+3857262,43,106,2022-12-02,South Korea,Portugal,2,1,Group Stage
+3857280,43,106,2022-12-02,Cameroon,Brazil,1,0,Group Stage
+3857293,43,106,2022-12-02,Ghana,Uruguay,0,2,Group Stage
+3869151,43,106,2022-12-03,Argentina,Australia,2,1,Round of 16
+3869117,43,106,2022-12-03,Netherlands,United States,3,1,Round of 16
+3869118,43,106,2022-12-04,England,Senegal,3,0,Round of 16
+3869152,43,106,2022-12-04,France,Poland,3,1,Round of 16
+3869219,43,106,2022-12-05,Japan,Croatia,1,1,Round of 16
+3869253,43,106,2022-12-05,Brazil,South Korea,4,1,Round of 16
+3869220,43,106,2022-12-06,Morocco,Spain,0,0,Round of 16
+3869254,43,106,2022-12-06,Portugal,Switzerland,6,1,Round of 16
+3869420,43,106,2022-12-09,Croatia,Brazil,1,1,Quarter-finals
+3869321,43,106,2022-12-09,Netherlands,Argentina,2,2,Quarter-finals
+3869354,43,106,2022-12-10,England,France,1,2,Quarter-finals
+3869486,43,106,2022-12-10,Morocco,Portugal,1,0,Quarter-finals
+3869519,43,106,2022-12-13,Argentina,Croatia,3,0,Semi-finals
+3869552,43,106,2022-12-14,France,Morocco,2,0,Semi-finals
+3869684,43,106,2022-12-17,Croatia,Morocco,2,1,3rd Place Final
+3869685,43,106,2022-12-18,Argentina,France,3,3,Final
+3920384,1267,107,2024-01-13,Côte d'Ivoire,Guinea-Bissau,2,0,Group Stage
+3920385,1267,107,2024-01-14,Egypt,Mozambique,2,2,Group Stage
+3920387,1267,107,2024-01-14,Ghana,Cape Verde Islands,1,2,Group Stage
+3920386,1267,107,2024-01-14,Nigeria,Equatorial Guinea,1,1,Group Stage
+3920390,1267,107,2024-01-15,Algeria,Angola,1,1,Group Stage
+3920388,1267,107,2024-01-15,Senegal,Gambia,3,0,Group Stage
+3920389,1267,107,2024-01-15,Cameroon,Guinea,1,1,Group Stage
+3920393,1267,107,2024-01-16,Tunisia,Namibia,0,1,Group Stage
+3920391,1267,107,2024-01-16,Mali,South Africa,2,0,Group Stage
+3920392,1267,107,2024-01-16,Burkina Faso,Mauritania,1,0,Group Stage
+3920394,1267,107,2024-01-17,Morocco,Tanzania,3,0,Group Stage
+3920395,1267,107,2024-01-17,Congo DR,Zambia,1,1,Group Stage
+3920397,1267,107,2024-01-18,Equatorial Guinea,Guinea-Bissau,4,2,Group Stage
+3920396,1267,107,2024-01-18,Egypt,Ghana,2,2,Group Stage
+3920398,1267,107,2024-01-18,Côte d'Ivoire,Nigeria,0,1,Group Stage
+3920401,1267,107,2024-01-19,Guinea,Gambia,1,0,Group Stage
+3920399,1267,107,2024-01-19,Cape Verde Islands,Mozambique,3,0,Group Stage
+3920400,1267,107,2024-01-19,Senegal,Cameroon,3,1,Group Stage
+3920402,1267,107,2024-01-20,Algeria,Burkina Faso,2,2,Group Stage
+3920404,1267,107,2024-01-20,Tunisia,Mali,1,1,Group Stage
+3920403,1267,107,2024-01-20,Mauritania,Angola,2,3,Group Stage
+3920405,1267,107,2024-01-21,Morocco,Congo DR,1,1,Group Stage
+3920406,1267,107,2024-01-21,Zambia,Tanzania,1,1,Group Stage
+3920407,1267,107,2024-01-21,South Africa,Namibia,4,0,Group Stage
+3920410,1267,107,2024-01-22,Mozambique,Ghana,2,2,Group Stage
+3920411,1267,107,2024-01-22,Cape Verde Islands,Egypt,2,2,Group Stage
+3920409,1267,107,2024-01-22,Guinea-Bissau,Nigeria,0,1,Group Stage
+3920408,1267,107,2024-01-22,Equatorial Guinea,Côte d'Ivoire,4,0,Group Stage
+3920415,1267,107,2024-01-23,Mauritania,Algeria,1,0,Group Stage
+3920412,1267,107,2024-01-23,Guinea,Senegal,0,2,Group Stage
+3920413,1267,107,2024-01-23,Gambia,Cameroon,2,3,Group Stage
+3920414,1267,107,2024-01-23,Angola,Burkina Faso,2,0,Group Stage
+3920419,1267,107,2024-01-24,Zambia,Morocco,0,1,Group Stage
+3920418,1267,107,2024-01-24,Tanzania,Congo DR,0,0,Group Stage
+3920417,1267,107,2024-01-24,Namibia,Mali,0,0,Group Stage
+3920416,1267,107,2024-01-24,South Africa,Tunisia,0,0,Group Stage
+3922237,1267,107,2024-01-27,Angola,Namibia,3,0,Round of 16
+3922238,1267,107,2024-01-27,Nigeria,Cameroon,2,0,Round of 16
+3922239,1267,107,2024-01-28,Equatorial Guinea,Guinea,0,1,Round of 16
+3922240,1267,107,2024-01-28,Egypt,Congo DR,1,1,Round of 16
+3922242,1267,107,2024-01-29,Senegal,Côte d'Ivoire,1,1,Round of 16
+3922241,1267,107,2024-01-29,Cape Verde Islands,Mauritania,1,0,Round of 16
+3922244,1267,107,2024-01-30,Mali,Burkina Faso,2,1,Round of 16
+3922243,1267,107,2024-01-30,Morocco,South Africa,0,2,Round of 16
+3922356,1267,107,2024-02-02,Congo DR,Guinea,3,1,Quarter-finals
+3922321,1267,107,2024-02-02,Nigeria,Angola,1,0,Quarter-finals
+3922659,1267,107,2024-02-03,Mali,Côte d'Ivoire,1,2,Quarter-finals
+3922658,1267,107,2024-02-03,Cape Verde Islands,South Africa,0,0,Quarter-finals
+3922837,1267,107,2024-02-07,Nigeria,South Africa,1,1,Semi-finals
+3922838,1267,107,2024-02-07,Côte d'Ivoire,Congo DR,1,0,Semi-finals
+3923880,1267,107,2024-02-10,South Africa,Congo DR,0,0,3rd Place Final
+3923881,1267,107,2024-02-11,Nigeria,Côte d'Ivoire,1,2,Final
+3930158,55,282,2024-06-14,Germany,Scotland,5,1,Group Stage
+3930159,55,282,2024-06-15,Hungary,Switzerland,1,3,Group Stage
+3930160,55,282,2024-06-15,Spain,Croatia,3,0,Group Stage
+3930161,55,282,2024-06-15,Italy,Albania,2,1,Group Stage
+3930162,55,282,2024-06-16,Slovenia,Denmark,1,1,Group Stage
+3938637,55,282,2024-06-16,Poland,Netherlands,1,2,Group Stage
+3930163,55,282,2024-06-16,Serbia,England,0,1,Group Stage
+3930164,55,282,2024-06-17,Belgium,Slovakia,0,1,Group Stage
+3930165,55,282,2024-06-17,Austria,France,0,1,Group Stage
+3938638,55,282,2024-06-17,Romania,Ukraine,3,0,Group Stage
+3938639,55,282,2024-06-18,Turkey,Georgia,3,1,Group Stage
+3930166,55,282,2024-06-18,Portugal,Czech Republic,2,1,Group Stage
+3930168,55,282,2024-06-19,Germany,Hungary,2,0,Group Stage
+3930167,55,282,2024-06-19,Croatia,Albania,2,2,Group Stage
+3930169,55,282,2024-06-19,Scotland,Switzerland,1,1,Group Stage
+3930171,55,282,2024-06-20,Denmark,England,1,1,Group Stage
+3930170,55,282,2024-06-20,Slovenia,Serbia,1,1,Group Stage
+3930172,55,282,2024-06-20,Spain,Italy,1,0,Group Stage
+3930173,55,282,2024-06-21,Netherlands,France,0,0,Group Stage
+3938641,55,282,2024-06-21,Poland,Austria,1,3,Group Stage
+3938640,55,282,2024-06-21,Slovakia,Ukraine,1,2,Group Stage
+3939969,223,282,2024-06-21,Argentina,Canada,2,0,Group Stage
+3939970,223,282,2024-06-22,Peru,Chile,0,0,Group Stage
+3930175,55,282,2024-06-22,Belgium,Romania,2,0,Group Stage
+3938642,55,282,2024-06-22,Georgia,Czech Republic,1,1,Group Stage
+3930174,55,282,2024-06-22,Turkey,Portugal,0,3,Group Stage
+3939972,223,282,2024-06-22,Ecuador,Venezuela,1,2,Group Stage
+3939971,223,282,2024-06-23,Mexico,Jamaica,1,0,Group Stage
+3930176,55,282,2024-06-23,Switzerland,Germany,1,1,Group Stage
+3939974,223,282,2024-06-23,United States,Bolivia,2,0,Group Stage
+3930177,55,282,2024-06-23,Scotland,Hungary,0,1,Group Stage
+3939975,223,282,2024-06-24,Colombia,Paraguay,2,1,Group Stage
+3939973,223,282,2024-06-24,Uruguay,Panama,3,1,Group Stage
+3930178,55,282,2024-06-24,Croatia,Italy,1,1,Group Stage
+3930179,55,282,2024-06-24,Albania,Spain,0,1,Group Stage
+3930182,55,282,2024-06-25,Denmark,Serbia,0,0,Group Stage
+3939978,223,282,2024-06-25,Peru,Canada,0,1,Group Stage
+3938643,55,282,2024-06-25,France,Poland,1,1,Group Stage
+3930181,55,282,2024-06-25,England,Slovenia,0,0,Group Stage
+3930180,55,282,2024-06-25,Netherlands,Austria,2,3,Group Stage
+3939976,223,282,2024-06-25,Brazil,Costa Rica,0,0,Group Stage
+3939980,223,282,2024-06-26,Ecuador,Jamaica,3,1,Group Stage
+3938644,55,282,2024-06-26,Georgia,Portugal,2,0,Group Stage
+3939977,223,282,2024-06-26,Chile,Argentina,0,1,Group Stage
+3930184,55,282,2024-06-26,Czech Republic,Turkey,1,2,Group Stage
+3930183,55,282,2024-06-26,Slovakia,Romania,1,1,Group Stage
+3938645,55,282,2024-06-26,Ukraine,Belgium,0,0,Group Stage
+3939979,223,282,2024-06-27,Venezuela,Mexico,1,0,Group Stage
+3939981,223,282,2024-06-27,Panama,United States,2,1,Group Stage
+3939984,223,282,2024-06-28,Colombia,Costa Rica,3,0,Group Stage
+3939982,223,282,2024-06-28,Uruguay,Bolivia,5,0,Group Stage
+3939983,223,282,2024-06-29,Paraguay,Brazil,1,4,Group Stage
+3940878,55,282,2024-06-29,Switzerland,Italy,2,0,Round of 16
+3940983,55,282,2024-06-29,Germany,Denmark,2,0,Round of 16
+3941018,55,282,2024-06-30,Spain,Georgia,4,1,Round of 16
+3939986,223,282,2024-06-30,Argentina,Peru,2,0,Group Stage
+3939985,223,282,2024-06-30,Canada,Chile,0,0,Group Stage
+3941017,55,282,2024-06-30,England,Slovakia,2,1,Round of 16
+3941020,55,282,2024-07-01,Portugal,Slovenia,0,0,Round of 16
+3939987,223,282,2024-07-01,Jamaica,Venezuela,0,3,Group Stage
+3939988,223,282,2024-07-01,Mexico,Ecuador,0,0,Group Stage
+3941019,55,282,2024-07-01,France,Belgium,1,0,Round of 16
+3941021,55,282,2024-07-02,Romania,Netherlands,0,3,Round of 16
+3941022,55,282,2024-07-02,Austria,Turkey,1,2,Round of 16
+3939989,223,282,2024-07-02,Bolivia,Panama,1,3,Group Stage
+3939990,223,282,2024-07-02,United States,Uruguay,0,1,Group Stage
+3939991,223,282,2024-07-03,Brazil,Colombia,1,1,Group Stage
+3939992,223,282,2024-07-03,Costa Rica,Paraguay,2,1,Group Stage
+3942228,223,282,2024-07-05,Argentina,Ecuador,1,1,Quarter-finals
+3942226,55,282,2024-07-05,Spain,Germany,2,1,Quarter-finals
+3942349,55,282,2024-07-05,Portugal,France,0,0,Quarter-finals
+3942227,55,282,2024-07-06,England,Switzerland,1,1,Quarter-finals
+3942382,55,282,2024-07-06,Netherlands,Turkey,2,1,Quarter-finals
+3942229,223,282,2024-07-06,Venezuela,Canada,1,1,Quarter-finals
+3942416,223,282,2024-07-06,Colombia,Panama,5,0,Quarter-finals
+3942415,223,282,2024-07-07,Uruguay,Brazil,0,0,Quarter-finals
+3942752,55,282,2024-07-09,Spain,France,2,1,Semi-finals
+3942819,55,282,2024-07-10,Netherlands,England,1,2,Semi-finals
+3942785,223,282,2024-07-10,Argentina,Canada,2,0,Semi-finals
+3942852,223,282,2024-07-11,Uruguay,Colombia,0,1,Semi-finals
+3943076,223,282,2024-07-14,Canada,Uruguay,2,2,3rd Place Final
+3943043,55,282,2024-07-14,Spain,England,2,1,Final
+3943077,223,282,2024-07-15,Argentina,Colombia,1,0,Final
